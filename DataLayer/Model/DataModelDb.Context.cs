@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+
 namespace DataLayer.Model
 {
     using System;
@@ -25,7 +27,7 @@ namespace DataLayer.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Author> Authors { get; set; }
+        public virtual List<Author> Authors { get; set; }
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Reader> Readers { get; set; }
         public virtual DbSet<ReadingLog> ReadingLogs { get; set; }
