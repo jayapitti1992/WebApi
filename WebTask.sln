@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices", "WebServices\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTier", "DataTier\DataTier.csproj", "{0B7CD8C4-409B-4CD7-BEAF-0CDC81D945DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{96F228AD-34E9-41DC-9DD6-5D6CCE4AE154}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0B7CD8C4-409B-4CD7-BEAF-0CDC81D945DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B7CD8C4-409B-4CD7-BEAF-0CDC81D945DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B7CD8C4-409B-4CD7-BEAF-0CDC81D945DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96F228AD-34E9-41DC-9DD6-5D6CCE4AE154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96F228AD-34E9-41DC-9DD6-5D6CCE4AE154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96F228AD-34E9-41DC-9DD6-5D6CCE4AE154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96F228AD-34E9-41DC-9DD6-5D6CCE4AE154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

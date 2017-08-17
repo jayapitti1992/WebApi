@@ -1,55 +1,49 @@
-﻿using System;
+﻿using Services.Actions;
+using Services.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using DataTier;
-using WebServices.Models;
+
 
 namespace WebServices.Controllers
 {
     public class AuthorController : ApiController
     {
-        DataTierEntities dt = new DataTierEntities();
-
-        List<Author> authlist = new List<Author>();
-        List<LocalAuthor> Locallist = new List<LocalAuthor>();
-        private LocalAuthor OneAuth;
-        public IEnumerable<LocalAuthor> Get()
+        private Auth authActions;
+        public IEnumerable<Services.Models.LocalAuthor> Get()
         {
-            authlist = dt.Authors.ToList();
-
-            foreach (Author t in authlist)
-            {
-                OneAuth = new LocalAuthor();
-                OneAuth.AuthId = t.Id;
-                OneAuth.AuthName = t.Name;
-                OneAuth.AuthPhoneNumber = t.PhoneNumber;
-                OneAuth.AuthEmailAddress = t.EmailAddress;
-                Locallist.Add(this.OneAuth);
-
-            }
-            return Locallist;
-
-
+           authActions = new Auth();
+            return authActions.GetAllAuthors();
         }
 
-        private Author priauth;
+        
         public LocalAuthor Get(string id)
         {
-            priauth = dt.Authors.FirstOrDefault(x => x.Name == id);
 
-            OneAuth = new LocalAuthor();
-            OneAuth.AuthId = priauth.Id;
-            OneAuth.AuthName = priauth.Name;
-            OneAuth.AuthPhoneNumber = priauth.PhoneNumber;
-            OneAuth.AuthEmailAddress = priauth.EmailAddress;
-
-            return OneAuth;
-
+            authActions = new Auth();
+            return authActions.GetByName(id);
 
         }
+
+        public void Post([FromBody] LocalAuthor val)
+        {
+            authActions = new Auth();
+            authActions.AddAuthor(val);
+        }
+
+        public void Put(string id ,[FromBody] LocalAuthor LcAu)
+        {
+
+            authActions = new Auth();
+            authActions.EditAuthor(id,LcAu);
+
+        }
+
+        public void Delete(string id)
+        {
+            authActions = new Auth();
+            authActions.DeleteAuthor(id);
+        }
+
     
 }
 }
