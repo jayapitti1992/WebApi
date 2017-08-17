@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataTier.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="AuthorId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PublishDate" Type="date" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ReadingLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="BookId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReaderId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="EntryDate" Type="date" />
+        </EntityType>
+        <Association Name="FK__ReadingLo__BookI__4CA06362">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="ReadingLog" Type="Self.ReadingLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReadingLog">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReadingLo__Reade__4D94879B">
+          <End Role="Reader" Type="Self.Reader" Multiplicity="1" />
+          <End Role="ReadingLog" Type="Self.ReadingLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReadingLog">
+              <PropertyRef Name="ReaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataTierStoreContainer">
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reader" EntityType="Self.Reader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReadingLog" EntityType="Self.ReadingLog" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ReadingLo__BookI__4CA06362" Association="Self.FK__ReadingLo__BookI__4CA06362">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="ReadingLog" EntitySet="ReadingLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReadingLo__Reade__4D94879B" Association="Self.FK__ReadingLo__Reade__4D94879B">
+            <End Role="Reader" EntitySet="Reader" />
+            <End Role="ReadingLog" EntitySet="ReadingLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Author" Association="Self.FK_Book_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataTier" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Book_Author" FromRole="Author" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AuthorId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ISBN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Author" Relationship="Self.FK_Book_Author" FromRole="Book" ToRole="Author" />
+          <NavigationProperty Name="ReadingLogs" Relationship="Self.FK__ReadingLo__BookI__4CA06362" FromRole="Book" ToRole="ReadingLog" />
+        </EntityType>
+        <EntityType Name="Reader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="C_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ReadingLogs" Relationship="Self.FK__ReadingLo__Reade__4D94879B" FromRole="Reader" ToRole="ReadingLog" />
+        </EntityType>
+        <EntityType Name="ReadingLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BookId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReaderId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Book" Relationship="Self.FK__ReadingLo__BookI__4CA06362" FromRole="ReadingLog" ToRole="Book" />
+          <NavigationProperty Name="Reader" Relationship="Self.FK__ReadingLo__Reade__4D94879B" FromRole="ReadingLog" ToRole="Reader" />
+        </EntityType>
+        <Association Name="FK_Book_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReadingLo__BookI__4CA06362">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="ReadingLog" Type="Self.ReadingLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReadingLog">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReadingLo__Reade__4D94879B">
+          <End Role="Reader" Type="Self.Reader" Multiplicity="1" />
+          <End Role="ReadingLog" Type="Self.ReadingLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReadingLog">
+              <PropertyRef Name="ReaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataTierEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Authors" EntityType="Self.Author" />
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Readers" EntityType="Self.Reader" />
+          <EntitySet Name="ReadingLogs" EntityType="Self.ReadingLog" />
+          <AssociationSet Name="FK_Book_Author" Association="Self.FK_Book_Author">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReadingLo__BookI__4CA06362" Association="Self.FK__ReadingLo__BookI__4CA06362">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="ReadingLog" EntitySet="ReadingLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReadingLo__Reade__4D94879B" Association="Self.FK__ReadingLo__Reade__4D94879B">
+            <End Role="Reader" EntitySet="Readers" />
+            <End Role="ReadingLog" EntitySet="ReadingLogs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataTierStoreContainer" CdmEntityContainer="DataTierEntities">
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="DataTier.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="DataTier.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Readers">
+            <EntityTypeMapping TypeName="DataTier.Reader">
+              <MappingFragment StoreEntitySet="Reader">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="C_name" ColumnName="_name" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReadingLogs">
+            <EntityTypeMapping TypeName="DataTier.ReadingLog">
+              <MappingFragment StoreEntitySet="ReadingLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="ReaderId" ColumnName="ReaderId" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

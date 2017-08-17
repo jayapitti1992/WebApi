@@ -123,12 +123,6 @@
     <Compile Include="Services\AuthorService.cs" />
     <Compile Include="Services\IAuthorService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
-      <Project>{e2d61fe8-6efc-4870-8324-ee6a5cf23c87}</Project>
-      <Name>DataLayer</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
